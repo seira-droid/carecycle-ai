@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  # To be implemented in Phase 2
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: carecycle
+  #   ports:
+  #     - "5432:5432"
