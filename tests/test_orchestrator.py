@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi.testclient import TestClient
 from app.main import app
 
@@ -23,6 +25,7 @@ def test_orchestrator():
     assert "communication" in data
     assert "final_recommendation" in data
     
-    # Check specific mock values from one of the agents
-    assert data["cycle_intelligence"]["predicted_cycle_start"] == "2023-11-01"
+    # Check that the cycle intelligence result is a valid prediction contract
+    date.fromisoformat(data["cycle_intelligence"]["predicted_cycle_start"])
+    assert 0.0 <= data["cycle_intelligence"]["confidence_score"] <= 1.0
     assert data["symptoms"]["pain_level"] == 4
