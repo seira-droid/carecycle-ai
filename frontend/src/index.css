@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #f8f9fd;
+    --card-bg: #ffffff;
+    --text-primary: #1e1b4b;
+    --text-secondary: #4b5563;
+    --text-muted: #6b7280;
+    --border-color: #ede9fe;
+    --accent-lavender: #8b5cf6;
+    --accent-teal: #0d9488;
+  }
+
+  /* Low stimulation mode: Muted tones, warm off-white, no jarring high-frequency borders or contrasts */
+  .low-stimulation {
+    --bg-main: #f5f4ef !important;
+    --card-bg: #fcfbf9 !important;
+    --text-primary: #292524 !important;
+    --text-secondary: #57534e !important;
+    --text-muted: #78716c !important;
+    --border-color: #e7e5e4 !important;
+  }
+
+  .low-stimulation * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+
+  /* High contrast mode */
+  .high-contrast {
+    --bg-main: #000000 !important;
+    --card-bg: #121212 !important;
+    --text-primary: #ffffff !important;
+    --text-secondary: #fef08a !important;
+    --text-muted: #e2e8f0 !important;
+    --border-color: #fbbf24 !important;
+  }
+
+  .high-contrast .bg-white {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+    border-color: #fbbf24 !important;
+  }
+
+  .high-contrast .text-slate-600,
+  .high-contrast .text-slate-500,
+  .high-contrast .text-gray-500 {
+    color: #f3f4f6 !important;
+  }
+
+  .high-contrast .bg-slate-50,
+  .high-contrast .bg-purple-50,
+  .high-contrast .bg-teal-50 {
+    background-color: #1a1a1a !important;
+    border-color: #fbbf24 !important;
+  }
+
+  /* Font size scaling */
+  .text-size-lg {
+    font-size: 1.125rem;
+  }
+  .text-size-lg h1 { font-size: 2.25rem !important; }
+  .text-size-lg h2 { font-size: 1.75rem !important; }
+  .text-size-lg h3 { font-size: 1.35rem !important; }
+  .text-size-lg p, .text-size-lg span, .text-size-lg button, .text-size-lg input {
+    font-size: 1.05rem !important;
+  }
+
+  .text-size-xl {
+    font-size: 1.25rem;
+  }
+  .text-size-xl h1 { font-size: 2.5rem !important; }
+  .text-size-xl h2 { font-size: 2rem !important; }
+  .text-size-xl h3 { font-size: 1.5rem !important; }
+  .text-size-xl p, .text-size-xl span, .text-size-xl button, .text-size-xl input {
+    font-size: 1.15rem !important;
+  }
+
+  /* Dyslexia mode */
+  .dyslexia-font {
+    font-family: 'Comic Sans MS', 'Trebuchet MS', system-ui, sans-serif !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.1em !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Smooth scroll and custom scrollbar */
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Focus visible accessibility */
+  *:focus-visible {
+    outline: 3px solid #8b5cf6;
+    outline-offset: 2px;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f0f7;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

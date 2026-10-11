@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.orchestrator.agent_orchestrator import router as orchestrator_router
 from app.agents.cycle_intelligence_agent import router as cia_router
 from app.agents.symptom_understanding_agent import router as sua_router
@@ -7,6 +8,14 @@ from app.agents.caregiver_risk_agent import router as crdsa_router
 from app.agents.communication_agent import router as acea_router
 
 app = FastAPI(title="CareCycle AI", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include the main orchestrator route
 app.include_router(orchestrator_router, prefix="/api/v1", tags=["Orchestrator"])

@@ -18,3 +18,8 @@ venv.bak/
 
 # Pytest
 .pytest_cache/
+
+# Node & Frontend Build
+node_modules/
+dist/
+*.log
