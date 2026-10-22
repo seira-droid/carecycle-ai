@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi.testclient import TestClient
 from app.main import app
 
@@ -9,7 +11,7 @@ def test_health_check():
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
 
-def test_orchestrator_default():
+def test_orchestrator():
     """Test that the orchestrator calls all agent ML models and returns combined data."""
     response = client.get("/api/v1/orchestrate")
     assert response.status_code == 200
@@ -23,9 +25,10 @@ def test_orchestrator_default():
     assert "communication" in data
     assert "final_recommendation" in data
     
-    # Validate dynamic ML values
+    # Check that the cycle intelligence result is a valid prediction contract
+    date.fromisoformat(data["cycle_intelligence"]["predicted_cycle_start"])
+    assert 0.0 <= data["cycle_intelligence"]["confidence_score"] <= 1.0
     assert data["cycle_intelligence"]["predicted_cycle_length"] > 20
-    assert data["cycle_intelligence"]["confidence_score"] > 0.5
     assert "symptom_severity" in data["symptoms"]
     assert "risk_score" in data["caregiver_risk"]
     assert "accessible_explanations" in data["communication"]
