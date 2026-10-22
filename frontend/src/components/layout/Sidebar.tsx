@@ -3,17 +3,18 @@ import {
   LayoutDashboard,
   CalendarDays,
   BookHeart,
-  Lightbulb,
-  Cpu,
+  HelpCircle,
   BarChart3,
   ShieldCheck,
   ChevronLeft,
   ChevronRight,
-  HelpCircle,
-  HeartHandshake,
+  Sliders,
   Sparkles,
+  HeartHandshake,
+  LogOut,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { useAccessibility } from '../../context/AccessibilityContext';
 
 interface SidebarProps {
@@ -29,7 +30,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isOpenMobile,
   setIsOpenMobile,
 }) => {
-  const { activeTab, setActiveTab, user } = useApp();
+  const { activeTab, setActiveTab, user, setIsA11yPanelOpen } = useApp();
+  const { logout } = useAuth();
   const { settings } = useAccessibility();
 
   const navItems = [
@@ -37,71 +39,65 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'dashboard',
       label: settings.plainLanguage ? 'Home' : 'Dashboard',
       icon: LayoutDashboard,
-      description: 'Overview & daily status',
-    },
-    {
-      id: 'predictor',
-      label: settings.plainLanguage ? 'AI Predictor' : 'Clinical Predictor',
-      icon: Sparkles,
-      description: 'Trained ML & Dataset',
-      badge: 'ML 96%',
+      description: 'Daily overview & status',
     },
     {
       id: 'cycle',
-      label: settings.plainLanguage ? 'Cycle Calendar' : 'Cycle Tracker',
+      label: settings.plainLanguage ? 'My Cycle' : 'Cycle Calendar',
       icon: CalendarDays,
-      description: '4 phases & calendar',
+      description: '4 phases & period dates',
     },
     {
       id: 'diary',
-      label: settings.plainLanguage ? 'My Health Log' : 'Symptom Diary',
+      label: settings.plainLanguage ? 'Symptom Journal' : 'Symptom Journal',
       icon: BookHeart,
-      description: 'Daily symptoms & mood',
+      description: 'Log pain, mood, energy',
     },
     {
       id: 'insights',
-      label: settings.plainLanguage ? 'AI Reasons' : 'AI Insights',
-      icon: Lightbulb,
-      description: 'Explainable phase logic',
-    },
-    {
-      id: 'agents',
-      label: settings.plainLanguage ? 'Agent Team' : 'AI Agents',
-      icon: Cpu,
-      description: 'Multi-agent monitoring',
-      badge: '5+AO',
+      label: settings.plainLanguage ? 'Health Guidance' : 'Health Assistant',
+      icon: HelpCircle,
+      description: 'Non-drug comfort & tips',
     },
     {
       id: 'reports',
-      label: settings.plainLanguage ? 'Trends & Charts' : 'Reports & Analytics',
+      label: settings.plainLanguage ? 'Past Cycles' : 'Cycle History',
       icon: BarChart3,
-      description: 'Patterns & PDF export',
+      description: 'Trends & printable summary',
+    },
+    {
+      id: 'predictor',
+      label: settings.plainLanguage ? 'AI Model Lab' : 'Clinical Model Lab',
+      icon: Sparkles,
+      description: 'Trained ML & 250 cohort',
+      badge: '96% Acc',
     },
     {
       id: 'privacy',
-      label: settings.plainLanguage ? 'Safety & Privacy' : 'Privacy & Safety',
-      icon: ShieldCheck,
-      description: 'Data controls & support',
+      label: settings.plainLanguage ? 'Caregiver & Safety' : 'Caregiver Support',
+      icon: HeartHandshake,
+      description: 'Sharing controls & privacy',
     },
   ];
 
   return (
     <>
-      {/* Mobile backdrop */}
+      {/* Mobile Backdrop */}
       {isOpenMobile && (
         <div
           onClick={() => setIsOpenMobile(false)}
-          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm lg:hidden"
         />
       )}
 
+      {/* Main Sidebar Element */}
       <aside
-        className={`fixed lg:sticky top-[57px] left-0 z-40 h-[calc(100vh-57px)] bg-white border-r border-slate-200/80 transition-all duration-300 flex flex-col justify-between shrink-0 ${
+        className={`fixed lg:sticky top-[61px] left-0 z-40 h-[calc(100vh-61px)] bg-white border-r border-purple-100/80 transition-all duration-300 flex flex-col justify-between shrink-0 shadow-[1px_0_4px_rgba(139,92,246,0.02)] ${
           collapsed ? 'w-20' : 'w-64'
         } ${isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Navigation list */}
-        <div className="p-3 space-y-1 overflow-y-auto">
+        {/* Navigation Item List */}
+        <div className="p-3.5 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -113,37 +109,36 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   setActiveTab(item.id as any);
                   setIsOpenMobile(false);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all group relative ${
+                className={`w-full flex items-center gap-3.5 p-3 rounded-2xl text-left transition-all group relative ${
                   isActive
-                    ? 'bg-gradient-to-r from-purple-500/10 to-indigo-500/10 text-purple-700 font-semibold border border-purple-200/60 shadow-sm'
+                    ? 'bg-purple-50 text-purple-950 font-bold shadow-sm border border-purple-200/80'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
                 title={collapsed ? item.label : undefined}
-                aria-current={isActive ? 'page' : undefined}
               >
-                <span
-                  className={`p-2 rounded-lg shrink-0 transition-colors ${
+                <div
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                     isActive
-                      ? 'bg-purple-600 text-white shadow-sm shadow-purple-500/30'
-                      : 'bg-slate-100 text-slate-500 group-hover:bg-purple-100 group-hover:text-purple-600'
+                      ? 'bg-purple-600 text-white shadow-sm shadow-purple-500/25'
+                      : 'bg-slate-100/80 text-slate-500 group-hover:bg-purple-100 group-hover:text-purple-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
-                </span>
+                </div>
 
                 {!collapsed && (
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm truncate">{item.label}</span>
-                      {item.badge && (
-                        <span className="text-[10px] bg-purple-100 text-purple-700 font-bold px-1.5 py-0.5 rounded-md">
-                          {item.badge}
-                        </span>
-                      )}
+                  <div className="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs block leading-snug">{item.label}</span>
+                      <span className="text-[10px] text-slate-400 block font-normal leading-tight">
+                        {item.description}
+                      </span>
                     </div>
-                    <span className="text-[11px] text-slate-400 font-normal truncate block">
-                      {item.description}
-                    </span>
+                    {item.badge && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700">
+                        {item.badge}
+                      </span>
+                    )}
                   </div>
                 )}
               </button>
@@ -151,32 +146,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </div>
 
-        {/* Bottom card & collapse toggle */}
-        <div className="p-3 border-t border-slate-100 space-y-2">
-          {!collapsed && (
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-purple-50 to-teal-50/50 border border-purple-100/80">
-              <div className="flex items-center gap-2 text-xs font-semibold text-purple-900 mb-1">
-                <HeartHandshake className="w-4 h-4 text-purple-600 shrink-0" />
-                <span>Disability Accommodations</span>
-              </div>
-              <p className="text-[11px] text-slate-600 leading-snug">
-                Sensory support active for {user.neurodiversity[0]}. Zero overwhelming animations.
-              </p>
-            </div>
-          )}
+        {/* Sidebar Footer: Quick Accessibility & Collapse Toggle */}
+        <div className="p-3.5 border-t border-purple-100/80 space-y-2 bg-slate-50/50">
+          {/* Accessibility Settings Quick Link */}
+          <button
+            onClick={() => setIsA11yPanelOpen(true)}
+            className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-colors ${
+              collapsed ? 'justify-center' : ''
+            }`}
+            title="Accessibility Preferences"
+          >
+            <Sliders className="w-4 h-4 text-purple-600 shrink-0" />
+            {!collapsed && (
+              <span className="text-xs font-semibold">Accessibility Mode</span>
+            )}
+          </button>
 
-          {/* Desktop Collapse Button */}
+          {/* Desktop Collapse / Expand Button */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="hidden lg:flex w-full items-center justify-center gap-2 py-2 text-xs text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-xl transition-colors"
-            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            className="hidden lg:flex w-full items-center justify-center gap-2 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 text-xs font-semibold transition-colors"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? (
               <ChevronRight className="w-4 h-4" />
             ) : (
               <>
                 <ChevronLeft className="w-4 h-4" />
-                <span>Collapse sidebar</span>
+                <span>Collapse</span>
               </>
             )}
           </button>

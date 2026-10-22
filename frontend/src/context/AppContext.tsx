@@ -10,8 +10,17 @@ import {
   sampleNotifications,
 } from '../data/sampleData';
 import { apiService, BackendHealth } from '../services/api';
+import { useAuth } from './AuthContext';
 
-type TabView = 'dashboard' | 'predictor' | 'cycle' | 'diary' | 'insights' | 'agents' | 'reports' | 'privacy';
+export type TabView =
+  | 'dashboard'
+  | 'cycle'
+  | 'diary'
+  | 'insights'
+  | 'reports'
+  | 'predictor'
+  | 'privacy'
+  | 'accessibility';
 
 interface AppContextType {
   user: UserProfile;
@@ -38,7 +47,14 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile>(mockProfiles[0]);
+  const auth = useAuth();
+  const [user, setUser] = useState<UserProfile>(() => auth.user || mockProfiles[0]);
+
+  useEffect(() => {
+    if (auth.user) {
+      setUser(auth.user);
+    }
+  }, [auth.user]);
   const [availableProfiles] = useState<UserProfile[]>(mockProfiles);
   const [cycleStatus, setCycleStatusState] = useState<CycleStatus>(() => apiService.getCycleStatus());
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(() => apiService.getDiaryEntries());

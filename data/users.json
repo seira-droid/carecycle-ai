@@ -1,0 +1,96 @@
+{
+  "elena.vance@carecycle.health": {
+    "id": "usr_elena_100",
+    "email": "elena.vance@carecycle.health",
+    "name": "Elena Vance",
+    "pronouns": "she/they",
+    "age": 18,
+    "password_hash": "db4581f9a3f2721d6a4ad8a416aef206d601dfde4576e44ac7caf94181032036",
+    "salt": "b28786e5f25b8560ffa4af3c0d420fdf",
+    "neurodiversity": [
+      "Autism Spectrum Disorder",
+      "Sensory Processing Sensitivity"
+    ],
+    "sensory_sensitivities": [
+      "Bright fluorescent light",
+      "Waistband seam friction",
+      "High auditory volume"
+    ],
+    "average_cycle_length": 28,
+    "average_period_length": 5,
+    "last_period_start": "2026-10-01",
+    "caregiver_assistance": true,
+    "caregiver_name": "Marcus Vance (Caregiver)",
+    "preferred_language_mode": "standard",
+    "created_at": "2026-10-22T19:38:02.918026"
+  },
+  "demo@carecycle.health": {
+    "id": "usr_demo_101",
+    "email": "demo@carecycle.health",
+    "name": "Clinical Demo User",
+    "pronouns": "she/her",
+    "age": 22,
+    "password_hash": "db4581f9a3f2721d6a4ad8a416aef206d601dfde4576e44ac7caf94181032036",
+    "salt": "b28786e5f25b8560ffa4af3c0d420fdf",
+    "neurodiversity": [
+      "ADHD",
+      "Executive Functioning Variation"
+    ],
+    "sensory_sensitivities": [
+      "Low tolerance for harsh alarms"
+    ],
+    "average_cycle_length": 29,
+    "average_period_length": 5,
+    "last_period_start": "2026-10-05",
+    "caregiver_assistance": false,
+    "caregiver_name": null,
+    "preferred_language_mode": "simple",
+    "created_at": "2026-10-22T19:38:02.918026"
+  },
+  "test_90929bb2@carecycle.health": {
+    "id": "usr_2e842dbdf378",
+    "email": "test_90929bb2@carecycle.health",
+    "name": "Sarah Connor",
+    "pronouns": "she/her",
+    "age": 20,
+    "password_hash": "ada020fa1fde83dcb93843997c495263b84b2b4b42b72ec299f7d08d7b317fb3",
+    "salt": "4f418b90587b377d552aa33d55559d5b",
+    "neurodiversity": [
+      "Neurodivergent"
+    ],
+    "sensory_sensitivities": [
+      "Auditory sensitivity",
+      "Tactile clothing sensitivity"
+    ],
+    "average_cycle_length": 28,
+    "average_period_length": 5,
+    "last_period_start": "2026-10-22",
+    "caregiver_assistance": false,
+    "caregiver_name": null,
+    "preferred_language_mode": "standard",
+    "created_at": "2026-10-22T19:38:03.085344"
+  },
+  "test_9d978572@carecycle.health": {
+    "id": "usr_926ae3dc763c",
+    "email": "test_9d978572@carecycle.health",
+    "name": "Sarah Connor",
+    "pronouns": "she/her",
+    "age": 20,
+    "password_hash": "e822696d1c176e539218dd00257504e3ee7f10588a9ed347bfc2e9c15719c142",
+    "salt": "7d3cb00a5a9524be3bc1112290377d75",
+    "neurodiversity": [
+      "Neurodivergent"
+    ],
+    "sensory_sensitivities": [
+      "Auditory sensitivity",
+      "Tactile clothing sensitivity"
+    ],
+    "average_cycle_length": 28,
+    "average_period_length": 5,
+    "last_period_start": "2026-10-22",
+    "caregiver_assistance": false,
+    "caregiver_name": null,
+    "preferred_language_mode": "standard",
+    "created_at": "2026-10-22T19:48:36.893893"
+  }
+}

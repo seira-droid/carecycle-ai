@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.orchestrator.agent_orchestrator import router as orchestrator_router
+from app.routers.auth import router as auth_router
 from app.agents.cycle_intelligence_agent import router as cia_router
 from app.agents.symptom_understanding_agent import router as sua_router
 from app.agents.medical_knowledge_agent import router as mka_router
@@ -16,6 +17,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Authentication routes
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])
 
 # Include the main orchestrator route
 app.include_router(orchestrator_router, prefix="/api/v1", tags=["Orchestrator"])

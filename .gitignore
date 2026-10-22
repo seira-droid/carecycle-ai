@@ -23,3 +23,4 @@ venv.bak/
 node_modules/
 dist/
 *.log
+data/tokens.json

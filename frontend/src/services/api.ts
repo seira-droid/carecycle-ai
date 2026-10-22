@@ -373,4 +373,87 @@ export const apiService = {
   getExplainableInsight(): ExplainableInsight {
     return sampleExplainableInsight;
   },
+
+  // --- Authentication Services ---
+  async login(email: string, password: string): Promise<{ access_token: string; user: any; message: string }> {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Failed to sign in. Please check your credentials.');
+    }
+    return res.json();
+  },
+
+  async register(data: {
+    name: string;
+    email: string;
+    password: string;
+    pronouns?: string;
+    age?: number;
+    neurodiversity?: string[];
+  }): Promise<{ access_token: string; user: any; message: string }> {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Registration failed. Please try again.');
+    }
+    return res.json();
+  },
+
+  async getCurrentUser(token: string): Promise<any> {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+      throw new Error('Session expired or invalid.');
+    }
+    return res.json();
+  },
+
+  async logout(token?: string | null): Promise<void> {
+    if (token) {
+      try {
+        await fetch(`${BASE_URL}/api/v1/auth/logout`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch {
+        // Ignore network failure on logout
+      }
+    }
+  },
+
+  async requestPasswordReset(email: string): Promise<{ message: string; demo_reset_token?: string }> {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Failed to request password reset.');
+    }
+    return res.json();
+  },
+
+  async confirmPasswordReset(email: string, reset_token: string, new_password: string): Promise<{ message: string }> {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, reset_token, new_password }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Failed to reset password.');
+    }
+    return res.json();
+  },
 };
