@@ -1,13 +1,16 @@
 from fastapi import APIRouter
-from app.models.schemas import CRDSAResponse
+from app.models.schemas import CRDSAResponse, PatientProfileInput
+from app.services.ml_service import ml_service
 
 router = APIRouter()
 
 @router.get("/assess", response_model=CRDSAResponse)
 async def assess_risk():
-    """Mocked response for Caregiver Risk & Decision Support Agent"""
-    return CRDSAResponse(
-        risk_score=0.4,
-        caregiver_alerts=["Moderate pain reported. Monitor for next 12 hours."],
-        recommended_actions=["Offer heating pad", "Ensure hydration"]
-    )
+    """Assesses caregiver risk using the trained CRDSA RandomForestClassifier & Regressor."""
+    default_patient = PatientProfileInput()
+    return ml_service.assess_risk(default_patient)
+
+@router.post("/assess", response_model=CRDSAResponse)
+async def assess_risk_custom(patient: PatientProfileInput):
+    """Assesses caregiver risk for custom patient telemetry."""
+    return ml_service.assess_risk(patient)

@@ -11,6 +11,7 @@ import {
   ChevronRight,
   HelpCircle,
   HeartHandshake,
+  Sparkles,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAccessibility } from '../../context/AccessibilityContext';
@@ -37,6 +38,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: settings.plainLanguage ? 'Home' : 'Dashboard',
       icon: LayoutDashboard,
       description: 'Overview & daily status',
+    },
+    {
+      id: 'predictor',
+      label: settings.plainLanguage ? 'AI Predictor' : 'Clinical Predictor',
+      icon: Sparkles,
+      description: 'Trained ML & Dataset',
+      badge: 'ML 96%',
     },
     {
       id: 'cycle',

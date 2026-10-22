@@ -1,14 +1,16 @@
 from fastapi import APIRouter
-from app.models.schemas import MKAResponse
+from app.models.schemas import MKAResponse, PatientProfileInput
+from app.services.ml_service import ml_service
 
 router = APIRouter()
 
-@router.get("/retrieve", response_model=MKAResponse)
+@router.get("/guidance", response_model=MKAResponse)
 async def retrieve_knowledge():
-    """Mocked response for Medical Knowledge Agent"""
-    return MKAResponse(
-        hygiene_guidance="Use a heating pad for cramps.",
-        nutrition_guidance="Drink plenty of water and avoid caffeine.",
-        medication_reminders=["Take Ibuprofen if pain exceeds level 5."],
-        consultation_guidance="Consult a doctor if pain persists for more than 2 days."
-    )
+    """Retrieves evidence-based non-pharmacological comfort techniques and clinical guidelines."""
+    default_patient = PatientProfileInput()
+    return ml_service.retrieve_medical_knowledge(default_patient, "Moderate")
+
+@router.post("/guidance", response_model=MKAResponse)
+async def retrieve_knowledge_custom(patient: PatientProfileInput):
+    """Retrieves guidelines tailored to patient's disability and symptom severity."""
+    return ml_service.retrieve_medical_knowledge(patient, "Moderate")

@@ -5,6 +5,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { DisclaimerBanner } from './components/common/DisclaimerBanner';
 import { MainDashboard } from './components/dashboard/MainDashboard';
+import { ClinicalPredictor } from './components/predictor/ClinicalPredictor';
 import { CycleTracker } from './components/cycle/CycleTracker';
 import { HealthDiary } from './components/diary/HealthDiary';
 import { ExplainableAI } from './components/insights/ExplainableAI';
@@ -38,6 +39,7 @@ const DashboardContent: React.FC = () => {
 
         <main className="flex-1 p-4 lg:p-8 min-w-0 overflow-y-auto">
           {activeTab === 'dashboard' && <MainDashboard />}
+          {activeTab === 'predictor' && <ClinicalPredictor />}
           {activeTab === 'cycle' && <CycleTracker />}
           {activeTab === 'diary' && <HealthDiary />}
           {activeTab === 'insights' && <ExplainableAI />}

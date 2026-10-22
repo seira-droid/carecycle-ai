@@ -1,13 +1,16 @@
 from fastapi import APIRouter
-from app.models.schemas import CIAResponse
+from app.models.schemas import CIAResponse, PatientProfileInput
+from app.services.ml_service import ml_service
 
 router = APIRouter()
 
 @router.get("/predict", response_model=CIAResponse)
 async def predict_cycle():
-    """Mocked response for Cycle Intelligence Agent"""
-    return CIAResponse(
-        predicted_cycle_start="2023-11-01",
-        confidence_score=0.85,
-        irregularity_alerts=["Cycle is 2 days late compared to average."]
-    )
+    """Predicts cycle length and onset date using the trained CIA GradientBoostingRegressor model."""
+    default_patient = PatientProfileInput()
+    return ml_service.predict_cycle(default_patient)
+
+@router.post("/predict", response_model=CIAResponse)
+async def predict_cycle_custom(patient: PatientProfileInput):
+    """Predicts cycle metrics for a custom patient profile."""
+    return ml_service.predict_cycle(patient)

@@ -1,47 +1,54 @@
-from fastapi import APIRouter
-from app.models.schemas import OrchestratorResponse
-
-# Import agent stub functions
-from app.agents.cycle_intelligence_agent import predict_cycle
-from app.agents.symptom_understanding_agent import analyze_symptoms
-from app.agents.medical_knowledge_agent import retrieve_knowledge
-from app.agents.caregiver_risk_agent import assess_risk
-from app.agents.communication_agent import format_communication
+from fastapi import APIRouter, Body
+from typing import Optional
+from app.models.schemas import OrchestratorResponse, PatientProfileInput
+from app.services.ml_service import ml_service
 
 router = APIRouter()
 
 @router.get("/orchestrate", response_model=OrchestratorResponse)
-async def orchestrate_agents():
+async def orchestrate_default():
     """
-    Calls all agent stubs in sequence and returns a combined result.
-    In later phases, this will handle state, conflicts, and complex workflows.
+    Executes the multi-agent orchestration pipeline using the standard default neurodivergent profile.
+    Leverages trained ML models for CIA, SUA, CRDSA, MKA, and ACEA.
     """
-    # 1. Cycle Intelligence
-    cia_response = await predict_cycle()
-    
-    # 2. Symptom Understanding
-    sua_response = await analyze_symptoms()
-    
-    # 3. Medical Knowledge
-    mka_response = await retrieve_knowledge()
-    
-    # 4. Caregiver Risk & Decision Support
-    crdsa_response = await assess_risk()
-    
-    # 5. Adaptive Communication & Explanation
-    acea_response = await format_communication()
-    
-    # Assemble final recommendation mock
-    final_recommendation = (
-        "Based on the analysis, please monitor symptoms and ensure hydration. "
-        "Review the personalized communication for more details."
+    default_patient = PatientProfileInput(
+        user_id="U100",
+        name="Elena Vance",
+        age=18.0,
+        bmi=21.8,
+        primary_disability="Autism Spectrum Disorder",
+        communication_ability="Verbal - reliable",
+        caregiver_dependency_level="Independent",
+        stress_level_1_10=4,
+        exercise_freq_per_week=3,
+        sleep_hours=7.8,
+        diet_quality="Balanced",
+        reported_symptoms="Mild Cramps, Low Spoons",
+        pain_level_0_4_BioVid_scale=1,
+        pspi_score_0_15_UNBC_scale=3,
+        self_report_reliable=1
     )
-    
-    return OrchestratorResponse(
-        cycle_intelligence=cia_response,
-        symptoms=sua_response,
-        medical_knowledge=mka_response,
-        caregiver_risk=crdsa_response,
-        communication=acea_response,
-        final_recommendation=final_recommendation
-    )
+    return ml_service.orchestrate_all(default_patient)
+
+@router.post("/orchestrate", response_model=OrchestratorResponse)
+async def orchestrate_custom(patient: PatientProfileInput):
+    """
+    Executes the multi-agent orchestration pipeline using custom patient parameters.
+    Returns real-time predictions, SHAP attribution, risk scores, and sensory recommendations.
+    """
+    return ml_service.orchestrate_all(patient)
+
+@router.get("/models/metrics")
+async def get_model_metrics():
+    """Returns training metrics, accuracy, F1, ROC-AUC, and feature importances."""
+    return ml_service.get_metrics()
+
+@router.get("/dataset/summary")
+async def get_dataset_summary():
+    """Returns summary statistics and distributions from CareCycle_AI_Disability_Menstrual_Dataset.xlsx."""
+    return ml_service.get_dataset_summary()
+
+@router.get("/dataset/records")
+async def get_dataset_records(limit: int = 50, disability: Optional[str] = None):
+    """Returns patient rows from the dataset with optional disability filtering."""
+    return ml_service.get_dataset_records(limit=limit, disability=disability)

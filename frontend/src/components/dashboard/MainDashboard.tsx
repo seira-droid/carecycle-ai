@@ -14,6 +14,8 @@ import {
   TrendingUp,
   Smile,
   Zap,
+  Brain,
+  Database,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -114,6 +116,41 @@ export const MainDashboard: React.FC = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Trained ML Model & Dataset Highlights Card */}
+      <div className="bg-gradient-to-r from-violet-50 via-indigo-50 to-teal-50 border border-violet-200/80 rounded-3xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-start gap-3.5">
+          <div className="w-10 h-10 rounded-2xl bg-violet-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-violet-500/20">
+            <Brain className="w-5 h-5" />
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-sm font-extrabold text-slate-900 font-['Outfit']">
+                Multi-Agent ML Models Trained & Active
+              </h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-200 text-violet-800">
+                96.0% Accuracy
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-200 text-teal-800">
+                250-Patient Cohort
+              </span>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Trained on the disability-aware menstrual dataset with UNBC-McMaster facial pain and BioVid scales.
+              Features silent pain-masking detection and personalized sensory accommodations.
+            </p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('predictor')}
+          className="px-4 py-2.5 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold transition-all shadow-md shadow-violet-600/20 flex items-center justify-center gap-2 shrink-0 active:scale-95"
+        >
+          <Sparkles className="w-4 h-4" />
+          Open Clinical Predictor
+        </button>
       </div>
 
       {/* 2. Key Cycle Overview & Countdown Metrics */}

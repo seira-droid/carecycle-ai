@@ -5,3 +5,8 @@ pydantic-settings
 pytest
 httpx
 python-dotenv
+pandas
+scikit-learn
+openpyxl
+joblib
+numpy

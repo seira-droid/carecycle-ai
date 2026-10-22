@@ -11,7 +11,7 @@ import {
 } from '../data/sampleData';
 import { apiService, BackendHealth } from '../services/api';
 
-type TabView = 'dashboard' | 'cycle' | 'diary' | 'insights' | 'agents' | 'reports' | 'privacy';
+type TabView = 'dashboard' | 'predictor' | 'cycle' | 'diary' | 'insights' | 'agents' | 'reports' | 'privacy';
 
 interface AppContextType {
   user: UserProfile;

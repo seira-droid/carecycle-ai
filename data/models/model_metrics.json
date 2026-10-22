@@ -1,0 +1,188 @@
+{
+  "timestamp": "2026-10-22T19:11:07.200909",
+  "total_records": 250,
+  "models": {
+    "cia_cycle_model": {
+      "name": "Cycle Intelligence Regressor",
+      "agent": "CIA",
+      "algorithm": "GradientBoostingRegressor (n=80, lr=0.05)",
+      "mae_days": 4.36,
+      "rmse_days": 5.02,
+      "r2_score": -0.249,
+      "top_features": [
+        {
+          "feature": "stress_sleep_ratio",
+          "importance": 0.2956
+        },
+        {
+          "feature": "bmi",
+          "importance": 0.2058
+        },
+        {
+          "feature": "sleep_hours",
+          "importance": 0.1362
+        },
+        {
+          "feature": "age",
+          "importance": 0.082
+        },
+        {
+          "feature": "exercise_freq_per_week",
+          "importance": 0.0746
+        },
+        {
+          "feature": "diet_quality_Irregular",
+          "importance": 0.0707
+        },
+        {
+          "feature": "stress_level_1_10",
+          "importance": 0.0381
+        },
+        {
+          "feature": "primary_disability_Emotional Disturbance",
+          "importance": 0.0283
+        }
+      ]
+    },
+    "crdsa_alert_classifier": {
+      "name": "Caregiver Alert Classifier",
+      "agent": "CRDSA",
+      "algorithm": "RandomForestClassifier (n=100, max_depth=6)",
+      "accuracy": 0.96,
+      "precision": 1.0,
+      "recall": 0.9048,
+      "f1_score": 0.95,
+      "roc_auc": 0.9967,
+      "confusion_matrix": [
+        [
+          29,
+          0
+        ],
+        [
+          2,
+          19
+        ]
+      ],
+      "top_features": [
+        {
+          "feature": "self_report_reliable",
+          "importance": 0.1645
+        },
+        {
+          "feature": "pspi_score_0_15_UNBC_scale",
+          "importance": 0.142
+        },
+        {
+          "feature": "pain_level_0_4_BioVid_scale",
+          "importance": 0.132
+        },
+        {
+          "feature": "symptom_severity_category_Very Severe",
+          "importance": 0.096
+        },
+        {
+          "feature": "aac_use_Yes",
+          "importance": 0.0578
+        },
+        {
+          "feature": "aac_use_No",
+          "importance": 0.0549
+        },
+        {
+          "feature": "primary_disability_Autism Spectrum Disorder",
+          "importance": 0.0461
+        },
+        {
+          "feature": "stress_sleep_ratio",
+          "importance": 0.0435
+        },
+        {
+          "feature": "caregiver_dependency_level_Full support",
+          "importance": 0.0342
+        },
+        {
+          "feature": "symptom_severity_category_Mild",
+          "importance": 0.0327
+        }
+      ]
+    },
+    "crdsa_risk_regressor": {
+      "name": "Continuous Risk Score Regressor",
+      "agent": "CRDSA",
+      "algorithm": "GradientBoostingRegressor (n=100, max_depth=4)",
+      "mae": 2.61,
+      "r2_score": -0.304
+    },
+    "sua_severity_classifier": {
+      "name": "Symptom Severity Classifier",
+      "agent": "SUA",
+      "algorithm": "RandomForestClassifier (n=100, max_depth=5)",
+      "accuracy": 0.98,
+      "classes": [
+        "Mild",
+        "Moderate",
+        "Severe",
+        "Very Severe"
+      ]
+    }
+  },
+  "dataset_insights": {
+    "total_users": 250,
+    "disability_distribution": {
+      "Autism Spectrum Disorder": 66,
+      "Specific Learning Disability": 56,
+      "Intellectual Disability": 41,
+      "Speech or Language Impairment": 32,
+      "Emotional Disturbance": 27,
+      "Other Health Impairment (e.g. ADHD)": 23,
+      "Traumatic Brain Injury": 5
+    },
+    "severity_distribution": {
+      "Moderate": 94,
+      "Severe": 75,
+      "Mild": 46,
+      "Very Severe": 35
+    },
+    "alert_distribution": {
+      "No": 143,
+      "Yes": 107
+    },
+    "communication_distribution": {
+      "Verbal - limited": 92,
+      "Verbal - reliable": 90,
+      "Non-verbal (uses AAC)": 43,
+      "Non-verbal (no AAC yet)": 25
+    },
+    "avg_pain_by_disability": {
+      "Autism Spectrum Disorder": 8.41,
+      "Emotional Disturbance": 7.52,
+      "Intellectual Disability": 8.1,
+      "Other Health Impairment (e.g. ADHD)": 7.52,
+      "Specific Learning Disability": 8.12,
+      "Speech or Language Impairment": 8.5,
+      "Traumatic Brain Injury": 8.8
+    },
+    "avg_cycle_by_disability": {
+      "Autism Spectrum Disorder": 28.8,
+      "Emotional Disturbance": 28.5,
+      "Intellectual Disability": 27.7,
+      "Other Health Impairment (e.g. ADHD)": 27.5,
+      "Specific Learning Disability": 27.4,
+      "Speech or Language Impairment": 28.1,
+      "Traumatic Brain Injury": 26.8
+    },
+    "alert_rate_by_disability_pct": {
+      "Autism Spectrum Disorder": 69.7,
+      "Emotional Disturbance": 18.5,
+      "Intellectual Disability": 39.0,
+      "Other Health Impairment (e.g. ADHD)": 21.7,
+      "Specific Learning Disability": 33.9,
+      "Speech or Language Impairment": 40.6,
+      "Traumatic Brain Injury": 60.0
+    },
+    "silent_distress_detected_count": 68,
+    "mean_cycle_length": 28.0,
+    "mean_stress_level": 5.4,
+    "mean_sleep_hours": 7.4
+  }
+}
